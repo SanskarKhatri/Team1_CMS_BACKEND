@@ -1,0 +1,7 @@
+db-queries:
+  unit:
+    select: SELECT * FROM unit
+    insert: INSERT INTO unit(unit_code, unit_name, is_fractional, fractional_digits) VALUES (?, ?, ?, ?)
+    delete: DELETE FROM unit
+    
+    
