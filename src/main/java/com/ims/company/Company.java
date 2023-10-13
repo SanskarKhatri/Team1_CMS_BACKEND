@@ -2,11 +2,20 @@ package com.ims.company;
 
 import com.ims.address.Address;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 public class Company {
 	
 	private long id;
+	
+	@NotEmpty(message = "{Company.name.NotEmpty}")
 	private String name;
+	
+	@NotNull(message = "{Company.headquarterAddress.NotNull}")
 	private Address headquarterAddress;
+	
+	@NotEmpty(message = "{Company.gstin.NotEmpty}")
 	private String gstin;
 	
 	public long getId() {

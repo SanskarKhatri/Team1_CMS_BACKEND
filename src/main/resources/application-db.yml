@@ -7,4 +7,7 @@ db-queries:
     select: SELECT * FROM address
     insert: INSERT INTO address (addr_line_1, addr_line_2, city, state, country, pincode) VALUES (?, ?, ?, ?, ?, ?)
     delete: DELETE FROM address
-    
+  company:
+    select: SELECT * FROM company
+    insert: INSERT INTO company (company_name, headquarter_addr_id, gstin) VALUES (?, ?, ?)
+    delete: DELETE FROM company
