@@ -3,5 +3,8 @@ db-queries:
     select: SELECT * FROM unit
     insert: INSERT INTO unit(unit_code, unit_name, is_fractional, fractional_digits) VALUES (?, ?, ?, ?)
     delete: DELETE FROM unit
-    
+  address:
+    select: SELECT * FROM address
+    insert: INSERT INTO address (addr_line_1, addr_line_2, city, state, country, pincode) VALUES (?, ?, ?, ?, ?, ?)
+    delete: DELETE FROM address
     

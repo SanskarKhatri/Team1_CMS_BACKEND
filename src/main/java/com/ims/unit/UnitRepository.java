@@ -53,7 +53,7 @@ public class UnitRepository {
 	}
 	
 	public boolean addNew(Unit unit) {
-		LOGGER.info("addNew - {} {} {} {}", unit.getUnitCode(), unit.getName(), unit.isFractional(), unit.getFractionalDigits());
+		LOGGER.info("addNew", unit.getUnitCode(), unit.getName(), unit.isFractional(), unit.getFractionalDigits());
 		PreparedStatementCreatorFactory pscFactory = new PreparedStatementCreatorFactory(insertQuery, 
 				Types.VARCHAR,
 				Types.VARCHAR,

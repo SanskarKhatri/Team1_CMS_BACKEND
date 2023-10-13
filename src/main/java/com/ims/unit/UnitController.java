@@ -45,7 +45,7 @@ public class UnitController {
 	}
 	
 	@GetMapping("/unit/{unitCode}")
-	public ResponseEntity<?> findAll(@PathVariable String unitCode) {
+	public ResponseEntity<?> findByUnitCode(@PathVariable String unitCode) {
 		Map<String, Unit> rs = new HashMap<>();
 		rs.put("unit", unitRepo.findByUnitCode(unitCode));
 		return ResponseEntity.ok(rs);
@@ -62,7 +62,7 @@ public class UnitController {
 				return ResponseEntity.badRequest().body(ExceptionUtils.getErrorMap(bindingResult, null));
 			}
 			boolean added = unitRepo.addNew(unit);
-			return ResponseEntity.ok(unitRepo.findByUnitCode(unit.getUnitCode()));
+			return findByUnitCode(unit.getUnitCode());
 		}
 	}
 	
@@ -77,10 +77,10 @@ public class UnitController {
 		}
 		boolean deleted = unitRepo.deleteByUnitCode(unitCode);
 		if (!deleted) {
-			bindingResult.addError(new ObjectError(Unit.class.getName(),  messageSource.getMessage("Unit.DeleteByUnitCode.Success", null, Locale.ENGLISH)));
+			bindingResult.addError(new ObjectError(Unit.class.getName(),  messageSource.getMessage("Unit.DeleteByUnitCode.Failure", new Object[] {unitCode}, Locale.ENGLISH)));
 			return ResponseEntity.badRequest().body(ExceptionUtils.getErrorMap(bindingResult, null));			
 		}
-		return ResponseEntity.ok().body(messageSource.getMessage("{Unit.DeleteByUnitCode.Failure}", null, Locale.ENGLISH));
+		return ResponseEntity.ok().body(messageSource.getMessage("Unit.DeleteByUnitCode.Success", null, Locale.ENGLISH));
 	}
 	
 	public boolean isValidUnit (Unit unit, BindingResult bindingResult) {

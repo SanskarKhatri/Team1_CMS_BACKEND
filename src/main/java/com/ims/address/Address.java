@@ -1,20 +1,33 @@
 package com.ims.address;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class Address {
 
-	private long id;
+	private long addrId;
+	
+	@NotEmpty(message = "{Address.addressLine1.NotEmpty}")
 	private String addressLine1;
+	
 	private String addressLine2;
+	
+	@NotEmpty(message = "{Address.city.NotEmpty}")
 	private String city;
+	
+	@NotEmpty(message = "{Address.state.NotEmpty}")
 	private String state;
+	
+	@NotEmpty(message = "{Address.country.NotEmpty}")
 	private String country;
+	
+	@NotEmpty(message = "{Address.pincode.NotEmpty}")
 	private String pincode;
 	
-	public long getId() {
-		return id;
+	public long getAddrId() {
+		return addrId;
 	}
-	public void setId(long id) {
-		this.id = id;
+	public void setAddrId(long addrId) {
+		this.addrId = addrId;
 	}
 	public String getAddressLine1() {
 		return addressLine1;
