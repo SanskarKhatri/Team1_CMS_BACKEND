@@ -11,3 +11,7 @@ db-queries:
     select: SELECT * FROM company
     insert: INSERT INTO company (company_name, headquarter_addr_id, gstin) VALUES (?, ?, ?)
     delete: DELETE FROM company
+  branchLocation:
+    select: SELECT * FROM branch_location
+    insert: INSERT INTO branch_location (bl_name, company_id, bl_addr_id) VALUES (?, ?, ?)
+    delete: DELETE FROM branch_location
