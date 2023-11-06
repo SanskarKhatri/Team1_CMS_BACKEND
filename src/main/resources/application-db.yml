@@ -15,3 +15,7 @@ db-queries:
     select: SELECT * FROM branch_location
     insert: INSERT INTO branch_location (bl_name, company_id, bl_addr_id) VALUES (?, ?, ?)
     delete: DELETE FROM branch_location
+  item:
+    select: SELECT * FROM item
+    insert: INSERT INTO item (item_name, batch_number, unit_code, purchase_price, selling_price, opening_balance_date, opening_balance_qty, expiry_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    delete: DELETE FROM item

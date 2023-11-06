@@ -3,15 +3,35 @@ package com.ims.item;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import com.ims.unit.Unit;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 public class Item {
 
 	private long id;
+	
+	@NotEmpty(message = "{Item.name.NotEmpty}")
 	private String name;
-	private String unitCode;
+	
+	@NotEmpty(message = "{Item.batchNumber.NotEmpty}")
+	private String batchNumber;
+	
+	@NotNull(message = "{Item.unit.NotNull}")
+	private Unit unit;
+	
+	@NotNull(message = "{Item.sellingPrice.NotNull}")
 	private BigDecimal sellingPrice;
+	
+	@NotNull(message = "{Item.purchasePrice.NotNull}")
 	private BigDecimal purchasePrice;
+	
 	private Date openingBalanceDate;
+	
 	private BigDecimal openingBalanceQty;
+	
+	private Date expiryDate;
 	
 	public long getId() {
 		return id;
@@ -25,11 +45,23 @@ public class Item {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getUnitCode() {
-		return unitCode;
+	public String getBatchNumber() {
+		return batchNumber;
 	}
-	public void setUnitCode(String unitCode) {
-		this.unitCode = unitCode;
+	public void setBatchNumber(String batchNumber) {
+		this.batchNumber = batchNumber;
+	}
+	public Unit getUnit() {
+		return unit;
+	}
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+	}
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 	public BigDecimal getSellingPrice() {
 		return sellingPrice;
