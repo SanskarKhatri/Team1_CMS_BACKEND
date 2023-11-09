@@ -95,7 +95,8 @@ public class PurchaseInvoiceRepository {
 				Types.VARCHAR,
 				Types.NUMERIC,
 				Types.NUMERIC,
-				Types.NUMERIC);
+				Types.NUMERIC,
+				Types.DATE);
 		pscFactory.setReturnGeneratedKeys(true);
 		pscFactory.setGeneratedKeysColumnNames("id");
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -105,7 +106,8 @@ public class PurchaseInvoiceRepository {
 				pi.getVendorName(),
 				pi.getBillingAddress().getAddrId(),
 				pi.getBillAmount(),
-				pi.getTotalGst()));
+				pi.getTotalGst(),
+				pi.getInvoiceDate()));
 		jdbcTemplate.update(psc, keyHolder);
 		
 		long id = keyHolder.getKey().longValue();
@@ -167,6 +169,7 @@ class PurchaseInvoiceRowMapper implements RowMapper<PurchaseInvoice> {
 		pi.setBillAmount(rs.getBigDecimal("bill_amount"));
 		pi.setTotalGst(rs.getBigDecimal("total_gst"));
 		pi.setOrderItems(piRepo.findPIItemsByPIId(pi.getId()));
+		pi.setInvoiceDate(rs.getDate("invoice_date"));
 		
 		return pi;
 	}

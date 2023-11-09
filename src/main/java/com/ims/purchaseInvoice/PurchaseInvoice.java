@@ -1,6 +1,7 @@
 package com.ims.purchaseInvoice;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 import com.ims.address.Address;
@@ -13,6 +14,9 @@ import jakarta.validation.constraints.NotNull;
 public class PurchaseInvoice {
 	
 	private long id;
+	
+	@NotNull(message = "{PurchaseInvoice.invoiceDate.NotNull}")
+	private Date invoiceDate;
 	
 	@NotNull(message = "{PurchaseInvoice.bl.NotNull}")
 	private BranchLocation branchLocation;
@@ -70,5 +74,11 @@ public class PurchaseInvoice {
 	}
 	public void setOrderItems(List<PurchaseInvoiceItem> orderItems) {
 		this.orderItems = orderItems;
+	}
+	public Date getInvoiceDate() {
+		return invoiceDate;
+	}
+	public void setInvoiceDate(Date invoiceDate) {
+		this.invoiceDate = invoiceDate;
 	}
 }

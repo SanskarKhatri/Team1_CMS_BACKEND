@@ -109,19 +109,19 @@ public class ItemController {
 		if(item.getSellingPrice() != null && item.getSellingPrice().compareTo(BigDecimal.ZERO) < 0) {
 			bindingResult.addError(new FieldError(Item.class.getName(), "sellingPrice", messageSource.getMessage("Item.sellingPrice.Negative", null, Locale.ENGLISH)));
 		}
-		if(item.getOpeningBalanceQty() != null) {
-			if(item.getOpeningBalanceDate() == null) {
-				bindingResult.addError(new FieldError(Item.class.getName(), "openingBalanceDate", messageSource.getMessage("Item.openingBalanceDate.NotNull", null, Locale.ENGLISH)));
-			}
-			if(item.getOpeningBalanceQty().compareTo(BigDecimal.ZERO) < 0) {
-				bindingResult.addError(new FieldError(Item.class.getName(), "openingBalanceQty", messageSource.getMessage("Item.openingBalanceQty.Negative", null, Locale.ENGLISH)));
-			}
-		}
-		if(item.getOpeningBalanceDate() != null) {
-			if(item.getOpeningBalanceQty() == null) {
-				bindingResult.addError(new FieldError(Item.class.getName(), "openingBalanceDate", messageSource.getMessage("Item.openingBalanceQty.NotNull", null, Locale.ENGLISH)));
-			}
-		}
+//		if(item.getOpeningBalanceQty() != null) {
+//			if(item.getOpeningBalanceDate() == null) {
+//				bindingResult.addError(new FieldError(Item.class.getName(), "openingBalanceDate", messageSource.getMessage("Item.openingBalanceDate.NotNull", null, Locale.ENGLISH)));
+//			}
+//			if(item.getOpeningBalanceQty().compareTo(BigDecimal.ZERO) < 0) {
+//				bindingResult.addError(new FieldError(Item.class.getName(), "openingBalanceQty", messageSource.getMessage("Item.openingBalanceQty.Negative", null, Locale.ENGLISH)));
+//			}
+//		}
+//		if(item.getOpeningBalanceDate() != null) {
+//			if(item.getOpeningBalanceQty() == null) {
+//				bindingResult.addError(new FieldError(Item.class.getName(), "openingBalanceDate", messageSource.getMessage("Item.openingBalanceQty.NotNull", null, Locale.ENGLISH)));
+//			}
+//		}
 		return bindingResult != null && !bindingResult.hasErrors();
 	}
 	

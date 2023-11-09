@@ -95,7 +95,8 @@ public class SalesInvoiceRepository {
 				Types.NUMERIC,
 				Types.NUMERIC,
 				Types.NUMERIC,
-				Types.NUMERIC);
+				Types.NUMERIC,
+				Types.DATE);
 		pscFactory.setReturnGeneratedKeys(true);
 		pscFactory.setGeneratedKeysColumnNames("id");
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -106,7 +107,8 @@ public class SalesInvoiceRepository {
 				si.getShippingAddress().getAddrId(),
 				si.getBillingAddress().getAddrId(),
 				si.getBillAmount(),
-				si.getTotalGst()));
+				si.getTotalGst(),
+				si.getInvoiceDate()));
 		jdbcTemplate.update(psc, keyHolder);
 		
 		long id = keyHolder.getKey().longValue();
@@ -165,6 +167,7 @@ class SalesInvoiceRowMapper implements RowMapper<SalesInvoice> {
 		si.setBillAmount(rs.getBigDecimal("bill_amount"));
 		si.setTotalGst(rs.getBigDecimal("total_gst"));
 		si.setOrderItems(siRepo.findSIItemsBySIId(si.getId()));
+		si.setInvoiceDate(rs.getDate("invoice_date"));
 		
 		return si;
 	}

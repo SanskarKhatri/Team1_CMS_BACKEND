@@ -76,8 +76,8 @@ public class ItemRepository {
 				Types.VARCHAR,
 				Types.NUMERIC,
 				Types.NUMERIC,
-				Types.DATE,
-				Types.NUMERIC,
+//				Types.DATE,
+//				Types.NUMERIC,
 				Types.DATE);
 		pscFactory.setReturnGeneratedKeys(true);
 		pscFactory.setGeneratedKeysColumnNames("item_id");
@@ -89,8 +89,8 @@ public class ItemRepository {
 				item.getUnit().getUnitCode(),
 				item.getPurchasePrice(),
 				item.getSellingPrice(),
-				item.getOpeningBalanceDate(),
-				item.getOpeningBalanceQty(),
+//				item.getOpeningBalanceDate(),
+//				item.getOpeningBalanceQty(),
 				item.getExpiryDate()));
 		jdbcTemplate.update(psc, keyHolder);
 		return keyHolder.getKey().longValue();	
@@ -122,8 +122,8 @@ class ItemRowMapper implements RowMapper<Item> {
 		item.setUnit(unitRepo.findByUnitCode(rs.getString("unit_code")));
 		item.setSellingPrice(rs.getBigDecimal("selling_price"));
 		item.setPurchasePrice(rs.getBigDecimal("purchase_price"));
-		item.setOpeningBalanceDate(rs.getDate("opening_balance_date"));
-		item.setOpeningBalanceQty(rs.getBigDecimal("opening_balance_qty"));
+//		item.setOpeningBalanceDate(rs.getDate("opening_balance_date"));
+//		item.setOpeningBalanceQty(rs.getBigDecimal("opening_balance_qty"));
 		item.setExpiryDate(rs.getDate("expiry_date"));
 		
 		return item;

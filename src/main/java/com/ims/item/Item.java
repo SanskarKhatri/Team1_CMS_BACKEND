@@ -27,9 +27,9 @@ public class Item {
 	@NotNull(message = "{Item.purchasePrice.NotNull}")
 	private BigDecimal purchasePrice;
 	
-	private Date openingBalanceDate;
-	
-	private BigDecimal openingBalanceQty;
+//	private Date openingBalanceDate;
+//	
+//	private BigDecimal openingBalanceQty;
 	
 	private Date expiryDate;
 	
@@ -75,16 +75,16 @@ public class Item {
 	public void setPurchasePrice(BigDecimal purchasePrice) {
 		this.purchasePrice = purchasePrice;
 	}
-	public Date getOpeningBalanceDate() {
-		return openingBalanceDate;
-	}
-	public void setOpeningBalanceDate(Date openingBalanceDate) {
-		this.openingBalanceDate = openingBalanceDate;
-	}
-	public BigDecimal getOpeningBalanceQty() {
-		return openingBalanceQty;
-	}
-	public void setOpeningBalanceQty(BigDecimal openingBalanceQty) {
-		this.openingBalanceQty = openingBalanceQty;
-	}
+//	public Date getOpeningBalanceDate() {
+//		return openingBalanceDate;
+//	}
+//	public void setOpeningBalanceDate(Date openingBalanceDate) {
+//		this.openingBalanceDate = openingBalanceDate;
+//	}
+//	public BigDecimal getOpeningBalanceQty() {
+//		return openingBalanceQty;
+//	}
+//	public void setOpeningBalanceQty(BigDecimal openingBalanceQty) {
+//		this.openingBalanceQty = openingBalanceQty;
+//	}
 }
