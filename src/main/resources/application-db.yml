@@ -35,4 +35,9 @@ db-queries:
     select: SELECT * FROM si_items
     insert: INSERT INTO si_items (item_id, si_id, quantity, total_price, gst_amount) VALUES (?, ?, ?, ?, ?)
     delete: DELETE FROM si_items
+  inventory:
+    select: SELECT * FROM inventory
+    insert: INSERT INTO inventory (item_id, stock_qty, branch_location_id, expiry_date) VALUES (?, ?, ?, ?)
+    delete: DELETE FROM inventory
+    update: UPDATE inventory SET stock_qty = ? WHERE branch_location_id = ? AND item_id = ?
     
