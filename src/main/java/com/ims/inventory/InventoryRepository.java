@@ -79,6 +79,15 @@ public class InventoryRepository {
 		return BigDecimal.ZERO;
 	}
 	
+	public Date findExpiryDateIfExists (long blId, long itemId) {
+		LOGGER.info("findExpiryDateIfExists - {} {}", blId, itemId);
+		Inventory inv = findByBranchLocationIdAndItemId(blId, itemId);
+		if (inv != null) {
+			return inv.getExpiryDate();
+		}
+		return null;
+	}
+	
 	public void addStock (long blId, long itemId, BigDecimal quantity) {
 		LOGGER.info("addStock - {} {}", blId, itemId);
 		Inventory inv = findByBranchLocationIdAndItemId(blId, itemId);

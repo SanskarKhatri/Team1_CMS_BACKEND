@@ -121,9 +121,13 @@ public class SalesInvoiceController {
 				if (!itemRepo.existsById(item.getItem().getId())) {
 					bindingResult.addError(new FieldError(SalesInvoice.class.getName(), "orderItems.id", messageSource.getMessage("SalesInvoiceItem.item.NonExistent", new Object[] {item.getItem().getId()}, Locale.ENGLISH)));
 				} else if (blRepo.existsById(si.getBranchLocation().getId()) && 
-						(item.getQuantity() != null && item.getQuantity().compareTo(BigDecimal.ZERO) > 0) &&
-						invRepo.findAvailableQuantity(si.getBranchLocation().getId(), item.getItem().getId()).compareTo(item.getQuantity()) < 0) {
-					bindingResult.addError(new FieldError(SalesInvoice.class.getName(), "orderItems.quantity", messageSource.getMessage("SalesInvoiceItem.quantity.InsufficientStock", new Object[] {item.getQuantity(), item.getItem().getId()}, Locale.ENGLISH)));
+						(item.getQuantity() != null && item.getQuantity().compareTo(BigDecimal.ZERO) > 0)) { 
+					if (invRepo.findAvailableQuantity(si.getBranchLocation().getId(), item.getItem().getId()).compareTo(item.getQuantity()) < 0) {
+						bindingResult.addError(new FieldError(SalesInvoice.class.getName(), "orderItems.quantity", messageSource.getMessage("SalesInvoiceItem.quantity.InsufficientStock", new Object[] {item.getQuantity(), item.getItem().getId()}, Locale.ENGLISH)));
+					}
+					if (invRepo.findExpiryDateIfExists(si.getBranchLocation().getId(), item.getItem().getId()).compareTo(si.getInvoiceDate()) < 0) {
+						bindingResult.addError(new FieldError(SalesInvoice.class.getName(), "orderItems.expiryDate", messageSource.getMessage("SalesInvoiceItem.quantity.ExpiredStock", new Object[] {item.getItem().getId()}, Locale.ENGLISH)));
+					}
 				}
 //				if (!item.getGstAmount().equals(BigDecimal.ZERO) && item.getGstAmount().compareTo(BigDecimal.ZERO) < 0) {
 //					bindingResult.addError(new FieldError(SalesInvoice.class.getName(), "orderItems.gstAmount", messageSource.getMessage("SalesInvoiceItem.gstAmount.Negative", null, Locale.ENGLISH)));			

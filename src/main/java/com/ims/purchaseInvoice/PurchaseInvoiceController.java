@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ims.address.AddressRepository;
 import com.ims.branchLocation.BranchLocationRepository;
+import com.ims.inventory.InventoryRepository;
 import com.ims.item.Item;
 import com.ims.item.ItemRepository;
 import com.ims.utils.ExceptionUtils;
@@ -49,6 +50,9 @@ public class PurchaseInvoiceController {
 	
 	@Autowired
 	private ItemRepository itemRepo;
+	
+	@Autowired
+	private InventoryRepository invRepo;
 	
 	@GetMapping("/pi")
 	public ResponseEntity<?> findAll() {
@@ -113,6 +117,11 @@ public class PurchaseInvoiceController {
 			for (PurchaseInvoiceItem item : pi.getOrderItems()) {
 				if (!itemRepo.existsById(item.getItem().getId())) {
 					bindingResult.addError(new FieldError(PurchaseInvoice.class.getName(), "orderItems.id", messageSource.getMessage("PurchaseInvoiceItem.item.NonExistent", new Object[] {item.getItem().getId()}, Locale.ENGLISH)));
+				} else if (blRepo.existsById(pi.getBranchLocation().getId()) && 
+						(item.getQuantity() != null && item.getQuantity().compareTo(BigDecimal.ZERO) > 0)) { 
+					if (invRepo.findExpiryDateIfExists(pi.getBranchLocation().getId(), item.getItem().getId()).compareTo(pi.getInvoiceDate()) < 0) {
+						bindingResult.addError(new FieldError(PurchaseInvoice.class.getName(), "orderItems.expiryDate", messageSource.getMessage("PurchaseInvoiceItem.quantity.ExpiredStock", new Object[] {item.getItem().getId()}, Locale.ENGLISH)));
+					}
 				}
 //				if (!item.getGstAmount().equals(BigDecimal.ZERO) && item.getGstAmount().compareTo(BigDecimal.ZERO) < 0) {
 //					bindingResult.addError(new FieldError(PurchaseInvoice.class.getName(), "orderItems.gstAmount", messageSource.getMessage("PurchaseInvoiceItem.gstAmount.Negative", null, Locale.ENGLISH)));			
