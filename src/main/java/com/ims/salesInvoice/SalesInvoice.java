@@ -6,16 +6,32 @@ import java.util.List;
 import com.ims.address.Address;
 import com.ims.branchLocation.BranchLocation;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 public class SalesInvoice {
 	
 	private long id;
+	
+	@NotNull(message = "{SalesInvoice.bl.NotNull}")
 	private BranchLocation branchLocation;
+	
+	@NotEmpty(message = "{SalesInvoice.customerName.NotEmpty}")
 	private String customerName;
+	
+	@NotNull(message = "{SalesInvoice.shippingAddress.NotNull}")
 	private Address shippingAddress;
+	
+	@NotNull(message = "{SalesInvoice.billingAddress.NotNull}")
 	private Address billingAddress;
+	
+	
 	private BigDecimal totalGst;
 	private BigDecimal BillAmount;
-	private List<SalesInvoiceItems> orderItems;
+	
+	@NotEmpty(message = "{SalesInvoice.orderItems.NotEmpty}")
+	private List<@Valid SalesInvoiceItem> orderItems;
 	
 	public long getId() {
 		return id;
@@ -59,10 +75,10 @@ public class SalesInvoice {
 	public void setBillAmount(BigDecimal billAmount) {
 		BillAmount = billAmount;
 	}
-	public List<SalesInvoiceItems> getOrderItems() {
+	public List<SalesInvoiceItem> getOrderItems() {
 		return orderItems;
 	}
-	public void setOrderItems(List<SalesInvoiceItems> orderItems) {
+	public void setOrderItems(List<SalesInvoiceItem> orderItems) {
 		this.orderItems = orderItems;
 	}	
 }

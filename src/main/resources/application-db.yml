@@ -27,4 +27,12 @@ db-queries:
     select: SELECT * FROM pi_items
     insert: INSERT INTO pi_items (item_id, pi_id, quantity, total_price, gst_amount) VALUES (?, ?, ?, ?, ?)
     delete: DELETE FROM pi_items
+  salesInvoice:
+    select: SELECT * FROM sales_invoice
+    insert: INSERT INTO sales_invoice (branch_location_id, customer_name, ship_to_addr_id, bill_to_addr_id, bill_amount, total_gst) VALUES (?, ?, ?, ?, ?, ?)
+    delete: DELETE FROM sales_invoice
+  salesInvoiceItem:
+    select: SELECT * FROM si_items
+    insert: INSERT INTO si_items (item_id, si_id, quantity, total_price, gst_amount) VALUES (?, ?, ?, ?, ?)
+    delete: DELETE FROM si_items
     

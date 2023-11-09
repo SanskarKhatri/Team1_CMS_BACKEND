@@ -4,9 +4,13 @@ import java.math.BigDecimal;
 
 import com.ims.item.Item;
 
-public class SalesInvoiceItems {
+import jakarta.validation.constraints.NotNull;
 
+public class SalesInvoiceItem {
+
+	@NotNull(message = "{SalesInvoiceItem.item.NotNull}")
 	private Item item;
+	
 	private BigDecimal quantity;
 	private BigDecimal totalPrice;
 	private BigDecimal gstAmount;
