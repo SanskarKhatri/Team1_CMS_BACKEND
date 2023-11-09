@@ -117,7 +117,7 @@ public class PurchaseInvoiceController {
 //				if (!item.getGstAmount().equals(BigDecimal.ZERO) && item.getGstAmount().compareTo(BigDecimal.ZERO) < 0) {
 //					bindingResult.addError(new FieldError(PurchaseInvoice.class.getName(), "orderItems.gstAmount", messageSource.getMessage("PurchaseInvoiceItem.gstAmount.Negative", null, Locale.ENGLISH)));			
 //				}
-				if (!item.getQuantity().equals(BigDecimal.ZERO) && item.getQuantity().compareTo(BigDecimal.ZERO) < 0) {
+				if (item.getQuantity() != null && item.getQuantity().compareTo(BigDecimal.ZERO) < 0) {
 					bindingResult.addError(new FieldError(PurchaseInvoice.class.getName(), "orderItems.quantity", messageSource.getMessage("PurchaseInvoiceItem.quantity.Negative", null, Locale.ENGLISH)));			
 				}
 //				if (!item.getTotalPrice().equals(BigDecimal.ZERO) && item.getTotalPrice().compareTo(BigDecimal.ZERO) < 0) {

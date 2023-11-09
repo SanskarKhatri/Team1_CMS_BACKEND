@@ -54,6 +54,11 @@ public class InventoryRepository {
 		return jdbcTemplate.query(selectQuery, new InventoryRowMapper(blRepo, itemRepo));
 	}
 	
+	public List<Inventory> findAllByBranchLocationId(long blId) {
+		LOGGER.info("findAllByBranchLocationId - {}", blId);
+		return jdbcTemplate.query(selectQuery + " WHERE branch_location_id = ?", new InventoryRowMapper(blRepo, itemRepo), blId);
+	}
+	
 	public Inventory findByBranchLocationIdAndItemId (long blId, long itemId) {
 		LOGGER.info("findByBranchLocationIdAndItemId - {} {}", blId, itemId);
 		List<Inventory> inv = jdbcTemplate.query(selectQuery + " WHERE branch_location_id = ? AND item_id = ?", new InventoryRowMapper(blRepo, itemRepo), blId, itemId);

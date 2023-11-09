@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ims.address.AddressRepository;
 import com.ims.branchLocation.BranchLocationRepository;
+import com.ims.inventory.InventoryRepository;
 import com.ims.item.Item;
 import com.ims.item.ItemRepository;
 import com.ims.utils.ExceptionUtils;
@@ -49,6 +50,9 @@ public class SalesInvoiceController {
 	
 	@Autowired
 	private ItemRepository itemRepo;
+	
+	@Autowired
+	private InventoryRepository invRepo;
 	
 	@GetMapping("/si")
 	public ResponseEntity<?> findAll() {
@@ -116,11 +120,15 @@ public class SalesInvoiceController {
 			for (SalesInvoiceItem item : si.getOrderItems()) {
 				if (!itemRepo.existsById(item.getItem().getId())) {
 					bindingResult.addError(new FieldError(SalesInvoice.class.getName(), "orderItems.id", messageSource.getMessage("SalesInvoiceItem.item.NonExistent", new Object[] {item.getItem().getId()}, Locale.ENGLISH)));
+				} else if (blRepo.existsById(si.getBranchLocation().getId()) && 
+						(item.getQuantity() != null && item.getQuantity().compareTo(BigDecimal.ZERO) > 0) &&
+						invRepo.findAvailableQuantity(si.getBranchLocation().getId(), item.getItem().getId()).compareTo(item.getQuantity()) < 0) {
+					bindingResult.addError(new FieldError(SalesInvoice.class.getName(), "orderItems.quantity", messageSource.getMessage("SalesInvoiceItem.quantity.InsufficientStock", new Object[] {item.getQuantity(), item.getItem().getId()}, Locale.ENGLISH)));
 				}
 //				if (!item.getGstAmount().equals(BigDecimal.ZERO) && item.getGstAmount().compareTo(BigDecimal.ZERO) < 0) {
 //					bindingResult.addError(new FieldError(SalesInvoice.class.getName(), "orderItems.gstAmount", messageSource.getMessage("SalesInvoiceItem.gstAmount.Negative", null, Locale.ENGLISH)));			
 //				}
-				if (!item.getQuantity().equals(BigDecimal.ZERO) && item.getQuantity().compareTo(BigDecimal.ZERO) < 0) {
+				if (item.getQuantity() != null && item.getQuantity().compareTo(BigDecimal.ZERO) < 0) {
 					bindingResult.addError(new FieldError(SalesInvoice.class.getName(), "orderItems.quantity", messageSource.getMessage("SalesInvoiceItem.quantity.Negative", null, Locale.ENGLISH)));			
 				}
 //				if (!item.getTotalPrice().equals(BigDecimal.ZERO) && item.getTotalPrice().compareTo(BigDecimal.ZERO) < 0) {

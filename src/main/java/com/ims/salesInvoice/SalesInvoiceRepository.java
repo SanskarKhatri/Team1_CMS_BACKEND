@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ims.address.AddressRepository;
 import com.ims.branchLocation.BranchLocationRepository;
+import com.ims.inventory.InventoryRepository;
 import com.ims.item.ItemRepository;
 
 @Repository
@@ -56,6 +57,9 @@ public class SalesInvoiceRepository {
 	
 	@Autowired
 	private BranchLocationRepository blRepo;
+	
+	@Autowired
+	private InventoryRepository invRepo;
 	
 	public List<SalesInvoice> findAll() {
 		LOGGER.info("findAll");
@@ -109,6 +113,7 @@ public class SalesInvoiceRepository {
 		
 		for (SalesInvoiceItem item : si.getOrderItems()) {
 			addItem(id, item);
+			invRepo.removeStock(si.getBranchLocation().getId(), item.getItem().getId(), item.getQuantity());
 		}
 		
 		return id;		
