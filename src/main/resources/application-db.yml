@@ -19,3 +19,12 @@ db-queries:
     select: SELECT * FROM item
     insert: INSERT INTO item (item_name, batch_number, unit_code, purchase_price, selling_price, opening_balance_date, opening_balance_qty, expiry_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     delete: DELETE FROM item
+  purchaseInvoice:
+    select: SELECT * FROM purchase_invoice
+    insert: INSERT INTO purchase_invoice (branch_location_id, vendor_name, bill_to_addr_id, bill_amount, total_gst) VALUES (?, ?, ?, ?, ?)
+    delete: DELETE FROM purchase_invoice
+  purchaseInvoiceItem:
+    select: SELECT * FROM pi_items
+    insert: INSERT INTO pi_items (item_id, pi_id, quantity, total_price, gst_amount) VALUES (?, ?, ?, ?, ?)
+    delete: DELETE FROM pi_items
+    

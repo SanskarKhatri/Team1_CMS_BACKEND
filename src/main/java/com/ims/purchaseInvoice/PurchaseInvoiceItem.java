@@ -4,12 +4,16 @@ import java.math.BigDecimal;
 
 import com.ims.item.Item;
 
+import jakarta.validation.constraints.NotNull;
+
 public class PurchaseInvoiceItem {
 	
+	@NotNull(message = "{PurchaseInvoiceItem.item.NotNull}")
 	private Item item;
-	private BigDecimal quantity;
-	private BigDecimal totalPrice;
-	private BigDecimal gstAmount;
+	
+	private BigDecimal quantity = BigDecimal.ZERO;
+	private BigDecimal totalPrice = BigDecimal.ZERO;
+	private BigDecimal gstAmount = BigDecimal.ZERO;
 	
 	public Item getItem() {
 		return item;
